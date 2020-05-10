@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 Vue.use(Router)
 
 /* Layout */
@@ -162,6 +161,25 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
+
+
+
+export const asyncRoutes = [
+  {
+    path: '/error-log',
+    component: Layout,
+    meta: {roles:['assitance']},
+    children: [
+      {
+        path: 'log',
+        component: () => import('@/views/error-log/index'),
+        name: 'ErrorLog',
+        meta: { title: 'Error Log', icon: 'bug'}
+      }
+    ]
+  }
+
+  ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

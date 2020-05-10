@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">登录界面</h3>
       </div>
 
       <el-form-item prop="username">
@@ -41,12 +41,17 @@
         </span>
       </el-form-item>
 
+      <el-form-item>
+        <span class="svg-container">
+          <svg-icon icon-class="nested" />
+        </span>
+        <el-select v-model="loginForm.character" placeholder="请选择登录角色">
+          <el-option label="学生" value="1"></el-option>
+          <el-option label="教职工" value="2"></el-option>
+          <el-option label="管理员" value="3"></el-option>
+        </el-select>
+      </el-form-item>
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
 
     </el-form>
   </div>
@@ -59,7 +64,7 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!validUsername(value)&&value.length<5) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
@@ -74,8 +79,9 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '123456',
+        password: '123456',
+        character: '2'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
