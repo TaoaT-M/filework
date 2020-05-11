@@ -7,9 +7,9 @@ import { asyncRoutes, constantRoutes } from '@/router'
  */
 function hasPermission(roles, route) {
   if (route.meta && route.meta.roles) {
-    // return roles.some(role => route.meta.roles.includes(role))
-    return  route.meta.roles.includes(roles)
-    //some方法的使用有些问题。需要查看
+    return roles.some(role => route.meta.roles.includes(role))
+    // return  route.meta.roles.includes(roles)
+    //some方法的使用有些问题.需要查看
   } else {
     return true
   }

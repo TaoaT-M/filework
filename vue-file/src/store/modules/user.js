@@ -52,16 +52,16 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
+        const { data, map } = response
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        const { name, avatar ,roles} = data
-        console.log(roles)
+        const { name, avatar } = data
+        const { roles } = map
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_ROLES' , roles)
-        resolve(data)
+        resolve(response)//此处返回response可以给src下的permission使用获取map中的roles来动态生成路由表
       }).catch(error => {
         console.log('getinfo error:')
         reject(error)

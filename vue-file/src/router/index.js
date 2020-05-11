@@ -50,7 +50,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '控制台', icon: 'dashboard' }
     }]
   },
 
@@ -59,7 +59,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: { title: '个人信息管理', icon: 'example' },
     children: [
       {
         path: 'table',
@@ -159,7 +159,6 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
 
@@ -168,7 +167,7 @@ export const asyncRoutes = [
   {
     path: '/error-log',
     component: Layout,
-    meta: {roles:['assitance']},
+    meta: {roles:['辅导员']},
     children: [
       {
         path: 'log',
@@ -177,8 +176,33 @@ export const asyncRoutes = [
         meta: { title: 'Error Log', icon: 'bug'}
       }
     ]
-  }
+  },
+  {
+    path: '/op',
+    component: Layout,
+    meta: { title: '学校人员信息',
+            icon: 'user',
+            roles:['管理员']
+    },
 
+    children: [
+      {
+        path: 'users',
+        component: () => import('@/views/admin/users/index'),
+        name: 'usersInfo',
+        meta: { title: '管理学生信息', icon: 'table'}
+      },
+      {
+        path: 'works',
+        component: () => import('@/views/admin/works/index'),
+        name: 'worksInfo',
+        meta: { title: '管理教职工信息', icon: 'table'}
+      }
+
+    ]
+  },
+
+  { path: '*', redirect: '/404', hidden: true }
   ]
 
 const createRouter = () => new Router({
